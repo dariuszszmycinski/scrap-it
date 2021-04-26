@@ -1,10 +1,13 @@
 package dasz.model;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@JsonFilter("basicFilter")
 public class FileInfo implements Serializable {
 
     @Id

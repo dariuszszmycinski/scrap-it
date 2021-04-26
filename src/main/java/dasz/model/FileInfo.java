@@ -1,8 +1,6 @@
 package dasz.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,8 +12,15 @@ public class FileInfo implements Serializable {
     private Long fileId;
     private String fileName;
     private Date createdAt;
+    private Long size;
 
     public FileInfo() {
+    }
+
+    public FileInfo(String fileName, Date createdAt, Long size) {
+        this.fileName = fileName;
+        this.createdAt = createdAt;
+        this.size = size;
     }
 
     public Long getFileId() {
@@ -40,5 +45,23 @@ public class FileInfo implements Serializable {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Long getSize() {
+        return size;
+    }
+
+    public void setSize(Long size) {
+        this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return "FileInfo{" +
+                "fileId=" + fileId +
+                ", fileName='" + fileName + '\'' +
+                ", createdAt=" + createdAt +
+                ", size= lalal " + size +
+                '}';
     }
 }

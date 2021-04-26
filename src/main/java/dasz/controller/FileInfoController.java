@@ -20,16 +20,28 @@ public class FileInfoController {
     }
 
     @GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<FileInfo> getFiles(){
+    public List<FileInfo> getFiles() {
         return fileRepo.findAll();
     }
 
     @GetMapping(path = "/list/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<FileInfo> getFile(@PathVariable long id){
+    public Optional<FileInfo> getFile(@PathVariable long id) {
         return fileRepo.findById(id);
     }
 
-    public static void addFileInfoToRepo(FileInfo fileInfo){
+    @GetMapping(path = "/csv/{id}", produces = MediaType.TEXT_HTML_VALUE)
+    public String getCSV(@PathVariable long id) {
+        if (id<=fileRepo.count()){
+            FileInfo fileInfo = fileRepo.getOne(id);
+            return fileInfo.getFileId().toString().toUpperCase() + "|" +
+                    fileInfo.getFileName().toUpperCase() + "|" +
+                    fileInfo.getCreatedAt().toString().toUpperCase() + "|" +
+                    fileInfo.getSize().toString().toUpperCase() + " Bytes";
+        }
+        return "No such Id in database";
+    }
+
+    public static void addFileInfoToRepo(FileInfo fileInfo) {
         fileRepo.save(fileInfo);
     }
 

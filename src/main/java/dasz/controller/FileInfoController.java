@@ -19,11 +19,11 @@ public class FileInfoController {
 
     @Autowired
     public FileInfoController(FileInfoRepository fileRepo) {
-        this.fileRepo = fileRepo;
+        FileInfoController.fileRepo = fileRepo;
     }
 
     @GetMapping(path = "/list")
-    MappingJacksonValue getFiles() {
+    MappingJacksonValue getFilesListJson() {
         SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter.serializeAllExcept("createdAt", "size");
         FilterProvider filterProvider = new SimpleFilterProvider().addFilter("basicFilter", simpleBeanPropertyFilter);
         List<FileInfo> files = fileRepo.findAll();
@@ -33,11 +33,9 @@ public class FileInfoController {
     }
 
     @GetMapping(path = "/list/{id}")
-    MappingJacksonValue getFile(@PathVariable long id){
-        SimpleBeanPropertyFilter simpleBeanPropertyFilter =
-                SimpleBeanPropertyFilter.serializeAllExcept();
-        FilterProvider filterProvider = new SimpleFilterProvider()
-                .addFilter("basicFilter", simpleBeanPropertyFilter);
+    MappingJacksonValue getOneFileJson(@PathVariable long id) {
+        SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter.serializeAllExcept();
+        FilterProvider filterProvider = new SimpleFilterProvider().addFilter("basicFilter", simpleBeanPropertyFilter);
         Optional<FileInfo> fileInfo = fileRepo.findById(id);
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(fileInfo);
         mappingJacksonValue.setFilters(filterProvider);
@@ -45,8 +43,8 @@ public class FileInfoController {
     }
 
     @GetMapping(path = "/csv/{id}")
-    public String getCSV(@PathVariable long id) {
-        if (id<=fileRepo.count()){
+    public String getOneFileCsv(@PathVariable long id) {
+        if (id <= fileRepo.count()) {
             FileInfo fileInfo = fileRepo.getOne(id);
             return fileInfo.getFileId().toString().toUpperCase() + "|" +
                     fileInfo.getFileName().toUpperCase() + "|" +
@@ -59,6 +57,5 @@ public class FileInfoController {
     public static void addFileInfoToRepo(FileInfo fileInfo) {
         fileRepo.save(fileInfo);
     }
-
 
 }

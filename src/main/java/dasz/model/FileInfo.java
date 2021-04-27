@@ -58,13 +58,4 @@ public class FileInfo implements Serializable {
         this.size = size;
     }
 
-    @Override
-    public String toString() {
-        return "FileInfo{" +
-                "fileId=" + fileId +
-                ", fileName='" + fileName + '\'' +
-                ", createdAt=" + createdAt +
-                ", size= lalal " + size +
-                '}';
-    }
 }

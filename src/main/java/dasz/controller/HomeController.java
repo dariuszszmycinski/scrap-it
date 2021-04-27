@@ -20,33 +20,27 @@ import java.util.Objects;
 public class HomeController {
 
     @GetMapping("/")
-    public String home(){
+    public String home() {
         return "index";
     }
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-        System.err.println(file.getOriginalFilename());
-
+    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
         try {
             File file1 = convert(file);
             BasicFileAttributes attr = Files.readAttributes(file1.toPath(), BasicFileAttributes.class);
-            FileInfo fileInfo = new FileInfo(file.getOriginalFilename(),new Date(attr.creationTime().toMillis()), attr.size());
+            FileInfo fileInfo = new FileInfo(file.getOriginalFilename(), new Date(attr.creationTime().toMillis()), attr.size());
             FileInfoController.addFileInfoToRepo(fileInfo);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
-
+        redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/";
     }
 
-    private File convert(MultipartFile file)  {
+    private File convert(MultipartFile file) {
         File convFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
         try {
-            convFile.createNewFile();
             FileOutputStream fos = new FileOutputStream(convFile);
             fos.write(file.getBytes());
             fos.close();

@@ -3,6 +3,9 @@ package dasz.model;
 import com.fasterxml.jackson.annotation.JsonFilter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,8 +16,13 @@ public class FileInfo implements Serializable {
     @Id
     @GeneratedValue
     private Long fileId;
+    @NotNull
+    @NotEmpty
     private String fileName;
+    @NotNull
     private Date createdAt;
+    @NotNull
+    @Max(500000000)
     private Long size;
 
     public FileInfo() {

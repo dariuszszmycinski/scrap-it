@@ -49,7 +49,7 @@ public class FileInfoController {
             return fileInfo.getFileId().toString().toUpperCase() + "|" +
                     fileInfo.getFileName().toUpperCase() + "|" +
                     fileInfo.getCreatedAt().toString().toUpperCase() + "|" +
-                    fileInfo.getSize().toString().toUpperCase() + " Bytes";
+                    fileInfo.getSize().toString().toUpperCase() + " BYTES";
         }
         return "No such Id in database";
     }

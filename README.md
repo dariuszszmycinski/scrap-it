@@ -1,5 +1,10 @@
 # scrap-it
-recruitment task:
+
+Security login: user
+password: user
+schema mysql: scrap_it
+mysql username: root
+mysql password: admin
 
 You’ve joined a team that is supporting the ScrapeIt application. The mentioned app is scrapping tones of web pages and extracting useful information which are further stored in flat files (sample file attached). The application is continuously evolving, and new features are still being added. Some of the new features to be added have landed on your plate, below you can find the requirements.
 Technology to be used:

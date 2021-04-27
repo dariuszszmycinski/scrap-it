@@ -31,6 +31,7 @@ public class HomeController {
             BasicFileAttributes attr = Files.readAttributes(file1.toPath(), BasicFileAttributes.class);
             FileInfo fileInfo = new FileInfo(file.getOriginalFilename(), new Date(attr.creationTime().toMillis()), attr.size());
             FileInfoController.addFileInfoToRepo(fileInfo);
+            Files.delete(file1.toPath());
         } catch (IOException e) {
             e.printStackTrace();
         }

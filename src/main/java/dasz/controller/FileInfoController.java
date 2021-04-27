@@ -24,7 +24,7 @@ public class FileInfoController {
 
     @GetMapping(path = "/list")
     MappingJacksonValue getFilesListJson() {
-        SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter.serializeAllExcept("createdAt", "size");
+        SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter.serializeAllExcept("createdAt", "size", "numRows");
         FilterProvider filterProvider = new SimpleFilterProvider().addFilter("basicFilter", simpleBeanPropertyFilter);
         List<FileInfo> files = fileRepo.findAll();
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(files);
@@ -48,8 +48,9 @@ public class FileInfoController {
             FileInfo fileInfo = fileRepo.getOne(id);
             return fileInfo.getFileId().toString().toUpperCase() + "|" +
                     fileInfo.getFileName().toUpperCase() + "|" +
+                    fileInfo.getNumRows()+"|"+
                     fileInfo.getCreatedAt().toString().toUpperCase() + "|" +
-                    fileInfo.getSize().toString().toUpperCase() + " BYTES";
+                    fileInfo.getSize().toString().toUpperCase();
         }
         return "No such Id in database";
     }
